@@ -73,7 +73,6 @@ const addItemCart = async () => {
   const elementoLi = createCartItemElement({ sku, name, salePrice });
   olCart.appendChild(elementoLi);
   buttonAddCart.addEventListener('click', addItemCart);
-
 };
 
 window.onload = () => {
