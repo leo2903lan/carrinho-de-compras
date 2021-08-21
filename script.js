@@ -49,10 +49,6 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function cartItemClickListener(event) {
-    // escreva aqui;
-}
-
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -60,6 +56,27 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+const addItemCart = async () => {
+  const buttonAddCart = document.querySelector('.item_add');
+  // const itemCartID = document.querySelector('.item_sku');
+  const itemCartFetch = await fetch(`https://api.mercadolibre.com/items/${'MLB1341706310'}`);
+  const itemCartJson = await itemCartFetch.json();
+  const { sku, name, salePrice } = itemCartJson;
+  console.log({
+    sku,
+    name,
+    salePrice,
+  });
+    // createCartItemElement({ sku, name, salePrice });
+};
+addItemCart();
+
+function cartItemClickListener(event) {
+  
+}
+
+
 
 window.onload = () => {
   creatList();
