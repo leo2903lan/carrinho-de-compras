@@ -61,22 +61,30 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-const buscaItemFetch = async () => {
+const buscaItemFetch = async (id) => {
   const itemCartFetch = await
-  fetch('https://api.mercadolibre.com/items/MLB1341706310');
+  fetch(`https://api.mercadolibre.com/items/${id}`);
   const itemCartJson = await itemCartFetch.json();
+  console.log(id);
   return itemCartJson;
+
 };
 
-const addItemCart = async () => {  
+const addItemCart = async () => {
+  
   const olCart = document.querySelector('.cart__items');
-  const { id: sku, title: name, price: salePrice } = await buscaItemFetch();
-  const elementoLi = createCartItemElement({ sku, name, salePrice });
-  olCart.appendChild(elementoLi);
-  console.log(olCart);
+  const btnAddCart = document.querySelectorAll('.item__add');
+  btnAddCart.forEach((btn) => {
+      btn.addEventListener('click', async (event) => {    
+      const txtId = event.target.parentNode.firstChild.innerText;  
+      const { id: sku, title: name, price: salePrice } = await buscaItemFetch(txtId);
+      const elementoLi = createCartItemElement({ sku, name, salePrice });
+      olCart.appendChild(elementoLi);
+    });
+  });
 };
 
-window.onload = () => {
-  creatList();
+window.onload = async () => {
+  await creatList();
   addItemCart();
 };
