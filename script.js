@@ -79,8 +79,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-const buscaItemFetch = async (id) => {
-  
+const buscaItemFetch = async (id) => {  
   const itemCartFetch = await
     fetch(`https://api.mercadolibre.com/items/${id}`);
   const itemCartJson = await itemCartFetch.json();
