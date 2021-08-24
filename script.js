@@ -67,11 +67,9 @@ const buscaItemFetch = async (id) => {
   const itemCartJson = await itemCartFetch.json();
   console.log(id);
   return itemCartJson;
-
 };
 
 const addItemCart = async () => {
-  
   const olCart = document.querySelector('.cart__items');
   const btnAddCart = document.querySelectorAll('.item__add');
   btnAddCart.forEach((btn) => {
