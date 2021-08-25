@@ -107,8 +107,8 @@ const recCartOnLoad = () => {
 const olRemove = () => {
   const olCartRemove = document.querySelector('.cart__items');
   localStorage.removeItem('olCart');
+  localStorage.removeItem('total');
   olCartRemove.innerHTML = '';
-  console.log(olCartRemove);
 };
 
 const removeCartItems = () => {
@@ -130,11 +130,11 @@ const creatPriceElement = () => {
   priceTag.appendChild(pDescription);
   priceTag.appendChild(pTotal);
   cart.appendChild(priceTag);
+  localStorage.setItem('total', total);
 };
 
 const somaCart = async () => {
 const itemsCart = localStorage.getItem('olCart');
-
 };
 
 window.onload = async () => {
