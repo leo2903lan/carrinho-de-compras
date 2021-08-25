@@ -41,12 +41,6 @@ const loadingOn = () => {
   items.appendChild(elementP);
 };
 
-// const loadingOff = async () => {
-//   const body = document.querySelector('body');
-//   body.remove.tagName('p');
-//   console.log(body);
-// };
-
 const creatList = async () => {
   const items = document.querySelector('.items');
 
@@ -110,17 +104,17 @@ const recCartOnLoad = () => {
   olCart.addEventListener('click', cartItemClickListener);
 };
 
-// const olRemove = () => {
-//   const olRemoveTudo = document.querySelector('');
-//   console.log(olRemoveTudo);
-// };
-// olRemove();
+const olRemove = () => {
+  const olCartRemove = document.querySelector('.cart__items');
+  localStorage.removeItem('olCart');
+  olCartRemove.innerHTML = '';
+  console.log(olCartRemove);
+};
 
-// const removeCartItems = () => {
-//   const btnRemove = document.querySelector('.empty-cart');
-//   // btnRemove.addEventListener('click', olRemove);
-// };
-// removeCartItems();
+const removeCartItems = () => {
+  const btnRemove = document.querySelector('.empty-cart');
+  btnRemove.addEventListener('click', olRemove);
+};
 
 window.onload = async () => {
   await creatList();
@@ -128,4 +122,5 @@ window.onload = async () => {
   p.remove();
   addItemCart();
   recCartOnLoad();  
+  removeCartItems();
 };
