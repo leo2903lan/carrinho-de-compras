@@ -83,6 +83,16 @@ const buscaItemFetch = async (id) => {
   return itemCartJson;
 };
 
+const somaCart = async (price) => {
+  const itemsCart = localStorage.getItem('total');
+  const somaPrice = Number(itemsCart) + price;
+  localStorage.setItem('total', somaPrice);
+  const elementoP = document.querySelector('total-price,p');
+  const somaRound = Number(somaPrice).toFixed(2);
+  elementoP.innerText = somaRound;
+  
+};
+
 const addItemCart = async () => {
   const olCart = document.getElementsByClassName('cart__items')[0];
   const btnAddCart = document.querySelectorAll('.item__add');
@@ -93,6 +103,8 @@ const addItemCart = async () => {
       const elementoLi = createCartItemElement({ sku, name, salePrice });
       olCart.appendChild(elementoLi);
       localStorage.setItem('olCart', olCart.innerHTML);
+
+      await somaCart(salePrice);
     });
   });
 };
@@ -108,6 +120,8 @@ const olRemove = () => {
   const olCartRemove = document.querySelector('.cart__items');
   localStorage.removeItem('olCart');
   localStorage.removeItem('total');
+  const elementoP = document.querySelector('total-price,p');
+  elementoP.innerText = 0;  
   olCartRemove.innerHTML = '';
 };
 
@@ -133,10 +147,6 @@ const creatPriceElement = () => {
   localStorage.setItem('total', total);
 };
 
-const somaCart = async () => {
-const itemsCart = localStorage.getItem('olCart');
-};
-
 window.onload = async () => {
   await creatList();
   const p = document.querySelector('.loading');
@@ -145,5 +155,4 @@ window.onload = async () => {
   recCartOnLoad();  
   removeCartItems();
   creatPriceElement();
-  await somaCart();
 };
