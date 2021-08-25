@@ -84,7 +84,7 @@ const buscaItemFetch = async (id) => {
 };
 
 const addItemCart = async () => {
-  const olCart = document.querySelector('.cart__items');
+  const olCart = document.getElementsByClassName('cart__items')[0];
   const btnAddCart = document.querySelectorAll('.item__add');
   btnAddCart.forEach((btn) => {
     btn.addEventListener('click', async (event) => {
