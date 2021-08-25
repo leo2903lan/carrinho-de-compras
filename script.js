@@ -70,7 +70,7 @@ function getSkuFromProductItem(item) {
 const cartItemClickListener = (event) => {
   event.target.remove();
   localStorage.removeItem('olCart', event.target);
-  const olCart = document.querySelector('.cart__items');
+  const olCart = document.querySelector('ol');
   localStorage.setItem('olCart', olCart.innerHTML);
 };
 
@@ -109,6 +109,18 @@ const recCartOnLoad = () => {
   olCart.innerHTML = cartLocal;
   olCart.addEventListener('click', cartItemClickListener);
 };
+
+// const olRemove = () => {
+//   const olRemoveTudo = document.querySelector('');
+//   console.log(olRemoveTudo);
+// };
+// olRemove();
+
+// const removeCartItems = () => {
+//   const btnRemove = document.querySelector('.empty-cart');
+//   // btnRemove.addEventListener('click', olRemove);
+// };
+// removeCartItems();
 
 window.onload = async () => {
   await creatList();
