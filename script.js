@@ -116,6 +116,27 @@ const removeCartItems = () => {
   btnRemove.addEventListener('click', olRemove);
 };
 
+const creatPriceElement = () => {
+  const cart = document.querySelector('.cart');
+  const priceTag = document.createElement('section');
+  priceTag.className = 'total-price';
+  const pTotal = document.createElement('p');
+  const pDescription = document.createElement('h4');
+  pDescription.innerText = 'VALOR TOTAL:';
+  const total = 0;
+  console.log(priceTag);
+  console.log(cart);
+  pTotal.innerText = `$${total}`;
+  priceTag.appendChild(pDescription);
+  priceTag.appendChild(pTotal);
+  cart.appendChild(priceTag);
+};
+
+const somaCart = async () => {
+const itemsCart = localStorage.getItem('olCart');
+
+};
+
 window.onload = async () => {
   await creatList();
   const p = document.querySelector('.loading');
@@ -123,4 +144,6 @@ window.onload = async () => {
   addItemCart();
   recCartOnLoad();  
   removeCartItems();
+  creatPriceElement();
+  await somaCart();
 };
