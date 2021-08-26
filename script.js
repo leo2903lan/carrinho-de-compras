@@ -1,3 +1,5 @@
+const CART_OL = document.querySelector('.cart__items');
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -61,17 +63,28 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+const somaCart = async (price) => {
+  const itemsCart = localStorage.getItem('total');
+  const somaPrice = parseFloat(itemsCart) + price;
+  localStorage.setItem('total', somaPrice);
+  const elementoP = document.querySelector('total-price,p');    
+  elementoP.innerText = somaPrice;
+};
+
 const subCart = async (price) => {
-  const itemEvent = price.target.innerText.split('$')[1];
+  
   const priceLocalStorage = localStorage.getItem('total');
-  const subPrice = Number(priceLocalStorage) - itemEvent;
+  const subPrice = parseFloat(priceLocalStorage) - price;
+  console.log(subPrice);
   localStorage.setItem('total', subPrice);
   const elementoP = document.getElementById('pElement');
   elementoP.innerText = subPrice;
 };
 
 const cartItemClickListener = async (event) => {
-  await subCart(event);
+  const itemEvent = event.target.innerText.split('$')[1];
+  await subCart(itemEvent);
+
   event.target.remove();
   localStorage.removeItem('olCart', event.target);
   const olCart = document.querySelector('ol');
@@ -82,7 +95,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
+  // li.addEventListener('click', cartItemClickListener);
   return li;
 }
 
@@ -91,14 +104,6 @@ const buscaItemFetch = async (id) => {
     fetch(`https://api.mercadolibre.com/items/${id}`);
   const itemCartJson = await itemCartFetch.json();  
   return itemCartJson;
-};
-
-const somaCart = async (price) => {
-  const itemsCart = localStorage.getItem('total');
-  const somaPrice = Number(itemsCart) + price;
-  localStorage.setItem('total', somaPrice);
-  const elementoP = document.querySelector('total-price,p');    
-  elementoP.innerText = somaPrice;
 };
 
 const addItemCart = async () => {
@@ -136,13 +141,14 @@ const creatPriceElement = () => {
 };
 
 const recCartOnLoad = () => {
-  const olCart = document.querySelector('.cart__items');
+  // const olCart = document.querySelector('.cart__items');
   const cartLocal = localStorage.getItem('olCart');
   // const somaLocalStorage = localStorage.getItem('total');
-  olCart.innerHTML = cartLocal;
+  CART_OL.innerHTML = cartLocal;
   creatPriceElement();
-  olCart.addEventListener('click', cartItemClickListener);
 };
+
+CART_OL.addEventListener('click', cartItemClickListener);
 
 const olRemove = () => {
   const olCartRemove = document.querySelector('.cart__items');
@@ -151,6 +157,7 @@ const olRemove = () => {
   const elementoP = document.querySelector('total-price,p');
   elementoP.innerText = 0;  
   olCartRemove.innerHTML = '';
+  localStorage.setItem('total', 0);
 };
 
 const removeCartItems = () => {
