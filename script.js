@@ -61,7 +61,17 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-const cartItemClickListener = (event) => {
+const subCart = async (price) => {
+  const itemEvent = price.target.innerText.split('$')[1];
+  const priceLocalStorage = localStorage.getItem('total');
+  const subPrice = Number(priceLocalStorage) - itemEvent;
+  localStorage.setItem('total', subPrice);
+  const elementoP = document.getElementById('pElement');
+  elementoP.innerText = subPrice;
+};
+
+const cartItemClickListener = async (event) => {
+  await subCart(event);
   event.target.remove();
   localStorage.removeItem('olCart', event.target);
   const olCart = document.querySelector('ol');
@@ -87,10 +97,8 @@ const somaCart = async (price) => {
   const itemsCart = localStorage.getItem('total');
   const somaPrice = Number(itemsCart) + price;
   localStorage.setItem('total', somaPrice);
-  const elementoP = document.querySelector('total-price,p');
-  const somaRound = Number(somaPrice).toFixed(2);
-  elementoP.innerText = somaRound;
-  
+  const elementoP = document.querySelector('total-price,p');    
+  elementoP.innerText = somaPrice;
 };
 
 const addItemCart = async () => {
@@ -109,10 +117,30 @@ const addItemCart = async () => {
   });
 };
 
+const creatPriceElement = () => {
+  const cart = document.querySelector('.cart');
+  const priceTag = document.createElement('section');
+  priceTag.className = 'total-price';
+  const pTotal = document.createElement('p');
+  pTotal.id = 'pElement';
+  // const pDescription = document.createElement('h4');
+  // pDescription.innerText = 'VALOR TOTAL:';
+  const totalLocal = localStorage.getItem('total');
+  const total = 0 + Number(totalLocal);
+
+  pTotal.innerText = total;
+  // priceTag.appendChild(pDescription);
+  priceTag.appendChild(pTotal);
+  cart.appendChild(priceTag);
+  localStorage.setItem('total', total);
+};
+
 const recCartOnLoad = () => {
   const olCart = document.querySelector('.cart__items');
   const cartLocal = localStorage.getItem('olCart');
+  // const somaLocalStorage = localStorage.getItem('total');
   olCart.innerHTML = cartLocal;
+  creatPriceElement();
   olCart.addEventListener('click', cartItemClickListener);
 };
 
@@ -130,23 +158,6 @@ const removeCartItems = () => {
   btnRemove.addEventListener('click', olRemove);
 };
 
-const creatPriceElement = () => {
-  const cart = document.querySelector('.cart');
-  const priceTag = document.createElement('section');
-  priceTag.className = 'total-price';
-  const pTotal = document.createElement('p');
-  const pDescription = document.createElement('h4');
-  pDescription.innerText = 'VALOR TOTAL:';
-  const total = 0;
-  console.log(priceTag);
-  console.log(cart);
-  pTotal.innerText = `$${total}`;
-  priceTag.appendChild(pDescription);
-  priceTag.appendChild(pTotal);
-  cart.appendChild(priceTag);
-  localStorage.setItem('total', total);
-};
-
 window.onload = async () => {
   await creatList();
   const p = document.querySelector('.loading');
@@ -154,5 +165,4 @@ window.onload = async () => {
   addItemCart();
   recCartOnLoad();  
   removeCartItems();
-  creatPriceElement();
 };
