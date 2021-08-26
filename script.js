@@ -71,8 +71,7 @@ const somaCart = async (price) => {
   elementoP.innerText = somaPrice;
 };
 
-const subCart = async (price) => {
-  
+const subCart = async (price) => {  
   const priceLocalStorage = localStorage.getItem('total');
   const subPrice = parseFloat(priceLocalStorage) - price;
   console.log(subPrice);
