@@ -3,6 +3,8 @@
 
 Entendo um pouco mais sobre o tempo de requisições e ações entre uma função e outra, com o estudo do funcionamento assíncrono, e podemos fazer requisições em API's de terceiro, como foi o caso em utilizar o FETCH para fazer requisições para API do mercado livre, interpretando seus dados e utilizando do localStore para poder execultar os requisitos em estudo.
 
+Vocês podem ver o projeto pronto com as funcionalidades aqui! https://leo2903lan.github.io/carrinho-de-compras/
+
 ---
 
 ## Habilidades
