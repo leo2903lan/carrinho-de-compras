@@ -7,6 +7,7 @@ Entendo um pouco mais sobre o tempo de requisições e ações entre uma funçã
 
 ## Habilidades
 
+Durante o desenvolvimento foram testados 'n' maneiras de cáulculos, e métodos para arredondar o cálculo de produtos no carrinho durante a adição e remoção de produtos para que fosse atingido o resultado esperado nos testes solicitados.
 
 - Fazer requisições a uma API *(Application Programming Interface)* do Mercado Livre;
 - Utilizar os seus conhecimentos sobre JavaScript, CSS e HTML;
